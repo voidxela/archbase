@@ -1,9 +1,7 @@
-ARG s6_ver=3.2.0.2
+ARG s6_ver=3.2.1.0
 
 FROM archlinux:base-devel AS build
-RUN pacman -Syu --noconfirm git && \
-    # https://github.com/docker/for-mac/issues/7331
-    pacman -U --noconfirm https://archive.archlinux.org/packages/f/fakeroot/fakeroot-1.34-1-x86_64.pkg.tar.zst && \
+RUN pacman -Syu --noconfirm git && \ 
     useradd builder
 USER builder
 WORKDIR /build
@@ -18,7 +16,7 @@ ENV PUID=9393
 COPY --from=build /build/paru-bin/paru-bin-*.pkg.* .
 RUN pacman -Syu --noconfirm git sudo && \
     # https://github.com/docker/for-mac/issues/7331
-    pacman -U --noconfirm https://archive.archlinux.org/packages/f/fakeroot/fakeroot-1.34-1-x86_64.pkg.tar.zst && \
+    # pacman -U --noconfirm https://archive.archlinux.org/packages/f/fakeroot/fakeroot-1.34-1-x86_64.pkg.tar.zst && \
     pacman -U --noconfirm ./paru-bin-*.pkg.* && \
     rm -rf ./paru-bin-*.pkg.* /var/lib/pacman/sync && \
     useradd -r -G wheel admin && \
