@@ -19,7 +19,7 @@ RUN pacman -Syu --noconfirm git sudo && \
     # pacman -U --noconfirm https://archive.archlinux.org/packages/f/fakeroot/fakeroot-1.34-1-x86_64.pkg.tar.zst && \
     pacman -U --noconfirm ./paru-bin-*.pkg.* && \
     rm -rf ./paru-bin-*.pkg.* /var/lib/pacman/sync && \
-    useradd -r -G wheel admin && \
+    useradd -r -G wheel -m admin && \
     echo "%wheel ALL=(ALL:ALL) NOPASSWD:ALL" >> /etc/sudoers && \
     groupadd -g "$PUID" user && \
     useradd -u "$PUID" -g user -s /bin/bash -m user && \
